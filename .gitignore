@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+app/static/downloads/*
+!app/static/downloads/.gitkeep
+.env
+venv/
+node_modules/
+*.log

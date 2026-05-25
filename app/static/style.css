@@ -26,11 +26,24 @@ h1 {
 
 .input-section {
     display: flex;
-    gap: 10px;
+    flex-direction: column;
+    gap: 15px;
     margin-bottom: 1rem;
 }
 
-input[type="text"] {
+.input-group {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.divider {
+    font-weight: bold;
+    color: #666;
+    margin: 5px 0;
+}
+
+input[type="text"], input[type="file"] {
     flex-grow: 1;
     padding: 0.8rem;
     border: none;

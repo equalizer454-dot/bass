@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
     const processBtn = document.getElementById('process-btn');
+    const uploadBtn = document.getElementById('upload-btn');
     const urlInput = document.getElementById('youtube-url');
+    const fileInput = document.getElementById('file-upload');
     const statusMsg = document.getElementById('status-message');
     const playerSection = document.getElementById('player-section');
     const videoTitle = document.getElementById('video-title');
@@ -40,9 +42,46 @@ document.addEventListener('DOMContentLoaded', () => {
             startPolling();
         } catch (error) {
             statusMsg.textContent = 'Error: ' + error.message;
-            processBtn.disabled = false;
+            setButtonsDisabled(false);
         }
     });
+
+    uploadBtn.addEventListener('click', async () => {
+        const file = fileInput.files[0];
+        if (!file) {
+            alert('Please select a file to upload');
+            return;
+        }
+
+        statusMsg.textContent = 'Uploading file...';
+        setButtonsDisabled(true);
+
+        const formData = new FormData();
+        formData.append('file', file);
+
+        try {
+            const response = await fetch('/api/upload', {
+                method: 'POST',
+                body: formData
+            });
+            const data = await response.json();
+            if (response.ok) {
+                taskId = data.task_id;
+                startPolling();
+            } else {
+                statusMsg.textContent = 'Error: ' + (data.detail || 'Upload failed');
+                setButtonsDisabled(false);
+            }
+        } catch (error) {
+            statusMsg.textContent = 'Error: ' + error.message;
+            setButtonsDisabled(false);
+        }
+    });
+
+    function setButtonsDisabled(disabled) {
+        processBtn.disabled = disabled;
+        uploadBtn.disabled = disabled;
+    }
 
     function startPolling() {
         if (pollInterval) clearInterval(pollInterval);
@@ -59,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     displayPlayer(data);
                 } else if (data.status.startsWith('failed')) {
                     clearInterval(pollInterval);
-                    processBtn.disabled = false;
+                    setButtonsDisabled(false);
                 }
             } catch (error) {
                 console.error('Polling error:', error);
@@ -72,7 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
         videoTitle.textContent = data.title;
         audioPlayer.src = data.audio_url;
         statusMsg.textContent = 'Ready!';
-        processBtn.disabled = false;
+        setButtonsDisabled(false);
         renderTimeline();
     }
 

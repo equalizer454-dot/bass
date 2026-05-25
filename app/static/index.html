@@ -10,8 +10,15 @@
     <div class="container">
         <h1>Bass Line & Chord Tracker</h1>
         <div class="input-section">
-            <input type="text" id="youtube-url" placeholder="Enter YouTube URL">
-            <button id="process-btn">Process</button>
+            <div class="input-group">
+                <input type="text" id="youtube-url" placeholder="Enter YouTube URL">
+                <button id="process-btn">Process YouTube</button>
+            </div>
+            <div class="divider">OR</div>
+            <div class="input-group">
+                <input type="file" id="file-upload" accept=".mp3,.wav,.m4a,.ogg">
+                <button id="upload-btn">Upload & Process</button>
+            </div>
         </div>
 
         <div id="status-message"></div>
