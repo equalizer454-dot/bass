@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bass Line & Chord Tracker</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Bass Line & Chord Tracker</h1>
+        <div class="input-section">
+            <input type="text" id="youtube-url" placeholder="Enter YouTube URL">
+            <button id="process-btn">Process</button>
+        </div>
+
+        <div id="status-message"></div>
+
+        <div id="player-section" class="hidden">
+            <h2 id="video-title"></h2>
+            <audio id="audio-player" controls></audio>
+
+            <div class="controls">
+                <div class="control-group">
+                    <label for="tempo-control">Tempo: <span id="tempo-val">1.0</span>x</label>
+                    <input type="range" id="tempo-control" min="0.5" max="2.0" step="0.1" value="1.0">
+                </div>
+                <div class="control-group">
+                    <label for="transpose-control">Transpose: <span id="transpose-val">0</span> semitones</label>
+                    <input type="range" id="transpose-control" min="-12" max="12" step="1" value="0">
+                </div>
+            </div>
+
+            <div class="display-container">
+                <div class="display-box">
+                    <h3>Current Chord</h3>
+                    <div id="current-chord" class="large-text">-</div>
+                </div>
+                <div class="display-box">
+                    <h3>Bass Note</h3>
+                    <div id="current-bass" class="large-text">-</div>
+                </div>
+            </div>
+
+            <div id="timeline">
+                <!-- Timeline/waveform can go here -->
+            </div>
+        </div>
+    </div>
+    <script src="/static/app.js"></script>
+</body>
+</html>

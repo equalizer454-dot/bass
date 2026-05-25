@@ -1,0 +1,8 @@
+librosa
+numpy
+yt-dlp
+fastapi
+uvicorn
+pydantic
+python-multipart
+starlette
